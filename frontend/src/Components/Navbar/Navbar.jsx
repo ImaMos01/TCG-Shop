@@ -8,6 +8,14 @@ import {
   LuSearch,
 } from "react-icons/lu";
 import pageLogo from "./../../assets/pageLogo.svg";
+import NavMenu from "./NavMenu";
+
+const categoryItems = [
+  { url: "Digimon", name: "Digimon" },
+  { url: "Magic", name: "Magic: The Gathering" },
+  { url: "Pokemon", name: "Pokemon" },
+  { url: "YuGiOh", name: "Yu-Gi-Oh!" },
+];
 
 function Navbar() {
   const [isClick, setIsClick] = useState(false);
@@ -17,8 +25,8 @@ function Navbar() {
   };
 
   return (
-    <nav className="fixed w-full z-20 top-0 start-0 pb-2">
-      <div className="max-w-2xl lg:max-w-4xl flex flex-col md:flex-row items-center justify-between mx-auto py-4 px-5 gap-6">
+    <nav className="fixed w-full z-20 top-0 start-0 bg-white">
+      <div className="max-w-2xl lg:max-w-4xl flex flex-col md:flex-row items-center justify-between mx-auto py-4 px-5 gap-2 md:gap-6">
         <div className="flex items-center gap-2">
           <img src={pageLogo} className="size-12" />
           <a>TCG Shop</a>
@@ -40,6 +48,7 @@ function Navbar() {
             <button
               type="submit"
               className="absolute top-0 end-0 p-2 h-full text-white bg-orange-500 rounded-e-lg border border-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300"
+              aria-label="submit search"
             >
               <LuSearch className="size-5" />
             </button>
@@ -48,15 +57,20 @@ function Navbar() {
 
         {/*buttons */}
         <div className="flex gap-4">
-          <div className="flex items-center gap-1 hover:text-blue-700">
+          <div className="flex flex-col items-center hover:text-blue-700 text-center">
             <LuUser2 className="size-6" />
             <a>Sign in</a>
           </div>
-          <div className="flex items-center gap-1 hover:text-blue-700">
-            <LuShoppingCart className="size-6" />
-            <a>Shop</a>
+          <div className="flex items-center gap-1 mr-2">
+            <LuShoppingCart className="size-6 hover:text-blue-700" />
+            <div className="absolute bg-red-500 rounded-full w-5 h-5 text-white top-28 md:top-7 lg:top-4 mt-3 md:mt-0 mx-4 flex justify-center items-center">
+              <div className="text-sm">0</div>
+            </div>
           </div>
-          <button className="p-1 my-2 border-2 rounded-md border-black hover:bg-gray-400">
+          <button
+            className="p-1 my-2 md:my-4 lg:my-2 border-2 rounded-md border-black hover:bg-gray-200 transition duration-500 ease-in-out transform hover:-translate-y-0.5 hover:scale-20"
+            aria-label="change theme"
+          >
             <LuMoon className="size-5" />
           </button>
         </div>
@@ -68,6 +82,7 @@ function Navbar() {
           <button
             className="sm:hidden flex justify-center p-1 border rounded-md rounded-gray-100 w-full max-w-10 mx-4"
             onClick={toggleNavbar}
+            aria-label="Open/Close tab"
           >
             {/*Change icons in each click */}
             {!isClick ? (
@@ -77,19 +92,17 @@ function Navbar() {
             )}
           </button>
           <ul className="hidden sm:flex sm:flex-row gap-8">
-            <li>Yu-Gi-Oh!</li>
-            <li>Pokemon</li>
-            <li>Digimon</li>
-            <li>Magic: The Gathering</li>
+            {categoryItems.map((it, index) => (
+              <NavMenu key={index} name={it.name} url={it.url} />
+            ))}
           </ul>
 
           {/*Appears when clicks the button */}
           {isClick && (
             <ul className="mx-4 sm:hidden flex flex-col gap-2 mt-2">
-              <li>Yu-Gi-Oh!</li>
-              <li>Pokemon</li>
-              <li>Digimon</li>
-              <li>Magic: The Gathering</li>
+              {categoryItems.map((it, index) => (
+                <NavMenu key={index} name={it.name} url={it.url} />
+              ))}
             </ul>
           )}
         </div>
