@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   LuUser2,
   LuShoppingCart,
@@ -7,17 +6,20 @@ import {
   LuX,
   LuSearch,
 } from "react-icons/lu";
+import { useState } from "react";
+import UseNavPages from "../../Hooks/UseNavPages";
 import pageLogo from "./../../assets/pageLogo.svg";
 import NavMenu from "./NavMenu";
 
 const categoryItems = [
-  { url: "Digimon", name: "Digimon" },
-  { url: "Magic", name: "Magic: The Gathering" },
-  { url: "Pokemon", name: "Pokemon" },
-  { url: "YuGiOh", name: "Yu-Gi-Oh!" },
+  { path: "Digimon", name: "Digimon" },
+  { path: "Magic", name: "Magic: The Gathering" },
+  { path: "Pokemon", name: "Pokemon" },
+  { path: "YuGiOh", name: "Yu-Gi-Oh!" },
 ];
 
 function Navbar() {
+  //Navbar of the website
   const [isClick, setIsClick] = useState(false);
 
   const toggleNavbar = () => {
@@ -27,10 +29,14 @@ function Navbar() {
   return (
     <nav className="fixed w-full z-20 top-0 start-0 bg-white">
       <div className="max-w-2xl lg:max-w-4xl flex flex-col md:flex-row items-center justify-between mx-auto py-4 px-5 gap-2 md:gap-6">
-        <div className="flex items-center gap-2">
+        <button
+          className="flex items-center gap-2"
+          onClick={UseNavPages("/")}
+          aria-label="Main Page"
+        >
           <img src={pageLogo} className="size-12" />
-          <a>TCG Shop</a>
-        </div>
+          <span>TCG Shop</span>
+        </button>
 
         {/*search input*/}
         <form className="flex items-center w-1/2 mx-auto">
@@ -57,16 +63,22 @@ function Navbar() {
 
         {/*buttons */}
         <div className="flex gap-4">
-          <div className="flex flex-col items-center hover:text-blue-700 text-center">
+          <button
+            className="flex flex-col items-center hover:text-blue-700 text-center"
+            aria-label="sign in"
+          >
             <LuUser2 className="size-6" />
-            <a>Sign in</a>
-          </div>
-          <div className="flex items-center gap-1 mr-2">
+            <p>Sign in</p>
+          </button>
+          <button
+            className="flex items-center gap-1 mr-2"
+            aria-label="shopping cart"
+          >
             <LuShoppingCart className="size-6 hover:text-blue-700" />
             <div className="absolute bg-red-500 rounded-full w-5 h-5 text-white top-28 md:top-7 lg:top-4 mt-3 md:mt-0 mx-4 flex justify-center items-center">
               <div className="text-sm">0</div>
             </div>
-          </div>
+          </button>
           <button
             className="p-1 my-2 md:my-4 lg:my-2 border-2 rounded-md border-black hover:bg-gray-200 transition duration-500 ease-in-out transform hover:-translate-y-0.5 hover:scale-20"
             aria-label="change theme"
@@ -93,7 +105,7 @@ function Navbar() {
           </button>
           <ul className="hidden sm:flex sm:flex-row gap-8">
             {categoryItems.map((it, index) => (
-              <NavMenu key={index} name={it.name} url={it.url} />
+              <NavMenu key={index} name={it.name} path={it.path} />
             ))}
           </ul>
 
@@ -101,7 +113,7 @@ function Navbar() {
           {isClick && (
             <ul className="mx-4 sm:hidden flex flex-col gap-2 mt-2">
               {categoryItems.map((it, index) => (
-                <NavMenu key={index} name={it.name} url={it.url} />
+                <NavMenu key={index} name={it.name} path={it.path} />
               ))}
             </ul>
           )}

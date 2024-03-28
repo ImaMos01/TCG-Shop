@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 
-function HomeCard({ url, title, description }) {
+function HomeCard({ image, title, description }) {
   /*
   Card template to put information about the categories
 
   Args:
-    url = URL of the image
+    image = URL of the image
     title = Title of the category
     description = Short description about the category
    
@@ -15,7 +15,7 @@ function HomeCard({ url, title, description }) {
 
   return (
     <article className="max-w-md rounded-xl overflow-hidden shadow-lg my-2 border border-gray-300 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
-      <img className="w-full" src={url} alt="sunset" />
+      <img className="w-full" src={image} alt="sunset" />
 
       {/*Cntent */}
       <div className="px-6 py-4">
@@ -26,7 +26,7 @@ function HomeCard({ url, title, description }) {
   );
 }
 HomeCard.propTypes = {
-  url: PropTypes.string,
+  image: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
 };
