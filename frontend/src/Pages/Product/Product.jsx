@@ -2,10 +2,13 @@ import Footer from "../../Components/Footer/Footer";
 import Navbar from "../../Components/Navbar/Navbar";
 
 function Product() {
+  /*
+    Shows the description of an product 
+  */
   return (
     <>
       <Navbar />
-      <article className="w-full max-w-2xl lg:max-w-4xl mx-auto pb-4 pt-56 md:pt-36 lg:pt-28 px-5 border border-black">
+      <article className="min-h-screen w-full max-w-2xl lg:max-w-4xl mx-auto pb-4 pt-56 md:pt-36 lg:pt-28 px-5 bg-white shadow-md border rounded border-gray-100 dark:bg-gray-800 dark:text-white dark:shadow-white dark:border-gray-900">
         <h2 className="pb-4">Home / category / product-name</h2>
 
         <section className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-8">
@@ -32,7 +35,7 @@ function Product() {
                   <label htmlFor="qty">qty:</label>
                   <select
                     id="qrty"
-                    className="border border-gray-500 rounded-md p-1"
+                    className="border border-gray-500 rounded-md p-1 dark:text-gray-900"
                   >
                     <option selected value="1">
                       1
@@ -40,7 +43,7 @@ function Product() {
                     <option value="2">2</option>
                   </select>
                   <button
-                    className="bg-green-500 text-white border rounded-md py-1 px-2 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-700"
+                    className="bg-green-500 text-white border rounded-md py-1 px-2 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-700 dark:border-gray-800"
                     aria-label="add to cart"
                   >
                     Add to Cart

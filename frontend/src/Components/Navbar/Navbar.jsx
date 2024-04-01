@@ -5,8 +5,9 @@ import {
   LuMenu,
   LuX,
   LuSearch,
+  LuSun,
 } from "react-icons/lu";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UseNavPages from "../../Hooks/UseNavPages";
 import pageLogo from "./../../assets/pageLogo.svg";
 import NavMenu from "./NavMenu";
@@ -21,13 +22,33 @@ const categoryItems = [
 function Navbar() {
   //Navbar of the website
   const [isClick, setIsClick] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  });
 
   const toggleNavbar = () => {
     setIsClick(!isClick);
   };
 
+  //verify the theme color
+  useEffect(() => {
+    if (theme === "dark") {
+      document.querySelector("html").classList.add("dark");
+    } else {
+      document.querySelector("html").classList.remove("dark");
+    }
+  }, [theme]);
+
+  //change the theme color
+  const handleChangeTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
   return (
-    <nav className="fixed w-full z-20 top-0 start-0 bg-white">
+    <nav className="fixed w-full z-20 top-0 start-0 bg-white dark:bg-gray-800 dark:text-white">
       <div className="max-w-2xl lg:max-w-4xl flex flex-col md:flex-row items-center justify-between mx-auto py-4 px-5 gap-2 md:gap-6">
         <button
           className="flex items-center gap-2"
@@ -47,7 +68,7 @@ function Navbar() {
             <input
               type="search"
               id="search"
-              className="p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-xl border-e-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              className="p-2.5 w-full z-20 text-sm text-gray-900 rounded-xl border-e-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
               placeholder="Search..."
               required
             />
@@ -63,27 +84,39 @@ function Navbar() {
 
         {/*buttons */}
         <div className="flex gap-4">
+          {/*Sign in */}
           <button
             className="flex flex-col items-center hover:text-blue-700 text-center"
             aria-label="sign in"
+            onClick={UseNavPages("/SignIn")}
           >
             <LuUser2 className="size-6" />
             <p>Sign in</p>
           </button>
+
+          {/*Shopping cart */}
           <button
             className="flex items-center gap-1 mr-2"
             aria-label="shopping cart"
+            onClick={UseNavPages("/Cart")}
           >
             <LuShoppingCart className="size-6 hover:text-blue-700" />
             <div className="absolute bg-red-500 rounded-full w-5 h-5 text-white top-28 md:top-7 lg:top-4 mt-3 md:mt-0 mx-4 flex justify-center items-center">
               <div className="text-sm">0</div>
             </div>
           </button>
+
+          {/* Change theme */}
           <button
-            className="p-1 my-2 md:my-4 lg:my-2 border-2 rounded-md border-black hover:bg-gray-200 transition duration-500 ease-in-out transform hover:-translate-y-0.5 hover:scale-20"
+            className="p-1 my-2 md:my-4 lg:my-2 border-2 rounded-md border-gray-500 bg-gray-500 text-white hover:bg-gray-700 transition duration-500 ease-in-out transform hover:-translate-y-0.5 hover:scale-20 dark:hover:bg-slate-300 dark:border-slate-500 dark:bg-slate-500"
             aria-label="change theme"
+            onClick={handleChangeTheme}
           >
-            <LuMoon className="size-5" />
+            {theme === "light" ? (
+              <LuMoon className="size-5" />
+            ) : (
+              <LuSun className="size-5" />
+            )}
           </button>
         </div>
       </div>

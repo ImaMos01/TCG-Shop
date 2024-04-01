@@ -45,23 +45,25 @@ function Home() {
   Main page of the website  
   */
   return (
-    <section className="w-full max-w-2xl lg:max-w-4xl mx-auto pt-60 md:pt-40 lg:pt-32 px-5">
+    <section className="min-h-screen w-full max-w-2xl lg:max-w-4xl mx-auto pt-60 md:pt-40 lg:pt-32 px-5 bg-white shadow-md border rounded border-gray-100 dark:bg-gray-800 dark:text-white dark:shadow-white dark:border-gray-900">
       {/* Slider */}
       <header className="w-[100%] m-auto ">
         <Carousel slides={slideItem} autoSlide={true} />
       </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 my-6 place-items-center sm:place-items-stretch">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 my-6 place-items-center sm:place-items-stretch">
         {categoryItem.map((it) => (
-          <button key={it.id} onClick={UseNavPages(`/${it.path}`)}>
-            <HomeCard
-              image={it.imageURL}
-              title={it.title}
-              description={it.description}
-            />
-          </button>
+          <li key={it.id}>
+            <button onClick={UseNavPages(`/${it.path}`)} className="w-full">
+              <HomeCard
+                image={it.imageURL}
+                title={it.title}
+                description={it.description}
+              />
+            </button>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

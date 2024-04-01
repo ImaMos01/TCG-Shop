@@ -14,13 +14,13 @@ function HomeCard({ image, title, description }) {
   */
 
   return (
-    <article className="max-w-md rounded-xl overflow-hidden shadow-lg my-2 border border-gray-300 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300">
+    <article className="max-w-md rounded-xl overflow-hidden shadow-lg my-2 border border-gray-300 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-300 dark:border-gray-900 dark:shadow-md dark:shadow-slate-700">
       <img className="w-full" src={image} alt="sunset" />
 
       {/*Cntent */}
       <div className="px-6 py-4">
         <h3 className="font-bold text-xl mb-2 text-center">{title}</h3>
-        <p className="text-black text-base">{description}</p>
+        <p className="text-base">{description}</p>
       </div>
     </article>
   );

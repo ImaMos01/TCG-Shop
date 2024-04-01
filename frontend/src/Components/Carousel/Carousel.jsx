@@ -45,7 +45,7 @@ function Carousel({ slides, autoSlide = false, autoslideInterval = 6000 }) {
       </div>
 
       {/*Buttons for next and prev image */}
-      <div className="absolute inset-0 flex items-center justify-between p-4">
+      <div className="absolute inset-0 flex items-center justify-between p-4 dark:text-gray-900">
         <button
           onClick={prev}
           className="p-1 rounded-full shadow bg-white"

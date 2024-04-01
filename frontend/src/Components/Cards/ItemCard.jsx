@@ -12,7 +12,7 @@ function ItemCard() {
   */
 
   return (
-    <article className="max-w-xs rounded-xl overflow-hidden shadow-lg my-2 border border-gray-800">
+    <article className="max-w-xs rounded-xl overflow-hidden shadow-lg my-2 border rounded border-gray-200 dark:border-gray-900 dark:shadow-md dark:shadow-slate-700">
       {/*Image */}
       <button className="w-full flex justify-center pt-2 ">
         <img

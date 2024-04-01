@@ -4,11 +4,13 @@ import App from "./App.jsx";
 import Category from "./Pages/Category/Category.jsx";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage.jsx";
 import Product from "./Pages/Product/Product.jsx";
+import Register from "./Pages/Login/Register.jsx";
+import SignIn from "./Pages/Login/SignIn.jsx";
+import ShoppCart from "./Pages/ShoppingCart/ShoppCart.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./index.css";
-import Register from "./Pages/Login/Register.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,16 @@ const router = createBrowserRouter([
   {
     path: "/Register",
     element: <Register />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/SignIn",
+    element: <SignIn />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/Cart",
+    element: <ShoppCart />,
     errorElement: <NotFoundPage />,
   },
 ]);
