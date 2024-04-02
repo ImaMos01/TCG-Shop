@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
+import Home from "./Pages/Home/Home.jsx";
 import Category from "./Pages/Category/Category.jsx";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage.jsx";
 import Product from "./Pages/Product/Product.jsx";
@@ -8,60 +8,41 @@ import Register from "./Pages/Login/Register.jsx";
 import SignIn from "./Pages/Login/SignIn.jsx";
 import ShoppCart from "./Pages/ShoppingCart/ShoppCart.jsx";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 
 import "./index.css";
+import { ThemeContextProvider } from "./Context/ThemeContext.jsx";
+import MainLayout from "./Layouts/MainLayout.jsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/YuGiOh",
-    element: <Category />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/Pokemon",
-    element: <Category />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/Digimon",
-    element: <Category />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/Magic",
-    element: <Category />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/Product",
-    element: <Product />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/Register",
-    element: <Register />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/SignIn",
-    element: <SignIn />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/Cart",
-    element: <ShoppCart />,
-    errorElement: <NotFoundPage />,
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />} />
+        <Route path="YuGiOh" element={<Category />} />
+        <Route path="Pokemon" element={<Category />} />
+        <Route path="Digimon" element={<Category />} />
+        <Route path="Magic" element={<Category />} />
+        <Route path="Product" element={<Product />} />
+        <Route path="Cart" element={<ShoppCart />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+      <Route path="/SignIn" element={<SignIn />} />
+      <Route path="/Register" element={<Register />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Route>
+  )
+);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeContextProvider>
+      <RouterProvider router={router} />
+    </ThemeContextProvider>
   </React.StrictMode>
 );

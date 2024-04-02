@@ -1,8 +1,9 @@
 import Logo from "../../Components/Logo/Logo";
+import { Link } from "react-router-dom";
 
 function SignIn() {
   return (
-    <article className="min-h-screen flex flex-col bg-gray-100">
+    <article className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900 dark:text-white">
       <header className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
         <div className="my-4 text-center">
           <Logo sizeImg={"12"} sizeText={"lg"} />
@@ -10,7 +11,7 @@ function SignIn() {
         </div>
 
         {/*Content */}
-        <section className="bg-white border rounded-md shadow-md w-full p-4">
+        <section className="bg-white border rounded-md shadow-md w-full p-4 dark:bg-gray-800 dark:border-gray-900">
           <form>
             <label htmlFor="userName" className="pl-0.5">
               User Name:
@@ -44,10 +45,13 @@ function SignIn() {
           </form>
         </section>
         <div className="text-grey-dark mt-4 flex flex-row gap-2">
-          Not have an account?
-          <p className="no-underline border-b border-blue text-blue">
+          <p>Not have an account?</p>
+          <Link
+            to={`/Register`}
+            className="text-blue-700 no-underline hover:underline"
+          >
             Create an Account
-          </p>
+          </Link>
         </div>
       </header>
     </article>

@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import UseNavPages from "../../Hooks/UseNavPages";
 import pageLogo from "./../../assets/pageLogo.svg";
 import NavMenu from "./NavMenu";
+import useThemeContext from "../../Hooks/UseThemeContext";
 
 const categoryItems = [
   { path: "Digimon", name: "Digimon" },
@@ -22,12 +23,15 @@ const categoryItems = [
 function Navbar() {
   //Navbar of the website
   const [isClick, setIsClick] = useState(false);
+  const { contextTheme, setContextTheme } = useThemeContext();
+  /*
   const [theme, setTheme] = useState(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return "dark";
     }
     return "light";
   });
+  */
 
   const toggleNavbar = () => {
     setIsClick(!isClick);
@@ -35,16 +39,18 @@ function Navbar() {
 
   //verify the theme color
   useEffect(() => {
-    if (theme === "dark") {
+    if (contextTheme === "dark") {
       document.querySelector("html").classList.add("dark");
+      document.querySelector("body").style.backgroundColor = "rgb(31 41 55)";
     } else {
       document.querySelector("html").classList.remove("dark");
+      document.querySelector("body").style.backgroundColor = "rgb(243 244 246)";
     }
-  }, [theme]);
+  }, [contextTheme]);
 
   //change the theme color
   const handleChangeTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    setContextTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
   return (
@@ -112,7 +118,7 @@ function Navbar() {
             aria-label="change theme"
             onClick={handleChangeTheme}
           >
-            {theme === "light" ? (
+            {contextTheme === "light" ? (
               <LuMoon className="size-5" />
             ) : (
               <LuSun className="size-5" />

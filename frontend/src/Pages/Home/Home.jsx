@@ -1,7 +1,7 @@
-import Carousel from "../Components/Carousel/Carousel.jsx";
-import HomeCard from "../Components/Cards/HomeCard.jsx";
-import UseNavPages from "../Hooks/UseNavPages.js";
-import ygo from "../assets/ygo.jpg";
+import Carousel from "../../Components/Carousel/Carousel.jsx";
+import HomeCard from "../../Components/Cards/HomeCard.jsx";
+import UseNavPages from "../../Hooks/UseNavPages.js";
+import ygo from "../../assets/ygo.jpg";
 
 const slideItem = [ygo, ygo, ygo];
 //images to big for categoryItem!!
@@ -45,7 +45,7 @@ function Home() {
   Main page of the website  
   */
   return (
-    <section className="min-h-screen w-full max-w-2xl lg:max-w-4xl mx-auto pt-60 md:pt-40 lg:pt-32 px-5 bg-white shadow-md border rounded border-gray-100 dark:bg-gray-800 dark:text-white dark:shadow-white dark:border-gray-900">
+    <section className="min-h-screen w-full max-w-2xl lg:max-w-4xl mx-auto pt-60 md:pt-40 lg:pt-32 px-5 bg-white shadow-md border rounded border-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-900 dark:shadow-slate-700">
       {/* Slider */}
       <header className="w-[100%] m-auto ">
         <Carousel slides={slideItem} autoSlide={true} />

@@ -5,7 +5,7 @@ function CartItem() {
     Item for the shopping cart
   */
   return (
-    <article className="border rounded-md border-gray-400 shadow-sm p-2 mx-1">
+    <article className="border rounded-md border-gray-400 shadow-sm p-2 mx-1 dark:border-gray-500">
       <div className="flex flex-row justify-between">
         <div className="flex flex-row gap-3">
           <img
@@ -22,7 +22,10 @@ function CartItem() {
 
         {/*price and remove */}
         <div className="flex flex-row gap-4 items-center">
-          <select id="qrty" className="border border-gray-500 rounded-md p-1">
+          <select
+            id="qrty"
+            className="border border-gray-500 rounded-md p-1 dark:text-gray-900"
+          >
             <option selected value="1">
               1
             </option>
@@ -30,7 +33,7 @@ function CartItem() {
           </select>
           <p>2.99</p>
           <button
-            className="border rounded-md text-white p-2 mx-2 bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-700"
+            className="border rounded-md text-white p-2 mx-2 bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-700 dark:border-gray-800"
             aria-label="remove button"
           >
             <FaRegTrashAlt className="size-5" />

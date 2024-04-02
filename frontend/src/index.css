@@ -6,8 +6,12 @@ body {
   background-color: rgb(243 244 246);
 }
 
-@media (prefers-color-scheme: dark) {
-  .body.adaptive {
-    background-color: rgb(31 41 55);
+* {
+  transition: all 0.04s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
