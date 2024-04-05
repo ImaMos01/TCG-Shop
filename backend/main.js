@@ -1,13 +1,14 @@
-const express = require("express");
-const crypto = require("node:crypto");
+import express, { json } from "express";
+import { createProductRouter } from "./routes/products.js";
+import { corsMiddleware } from "./middleware/cors.js";
+import { ProductModel } from "./models/mysql/product.js";
 //zod to validate the data of the request
 
 const app = express();
+app.use(corsMiddleware());
 app.disable("x-powered-by"); //disable the header Express
 
-app.get("/", (req, res) => {
-  res.json({ message: "hola munso" });
-});
+app.get("/product", createProductRouter({ productModel: ProductModel }));
 
 const PORT = process.env.PORT ?? 1234;
 
