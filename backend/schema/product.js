@@ -13,10 +13,6 @@ const productSchema = z.object({
   price: z.number().positive(),
 });
 
-function validateProduct(object) {
+export function validateProduct(object) {
   return productSchema.safeParse(object);
 }
-
-module.exports = {
-  validateProduct,
-};
