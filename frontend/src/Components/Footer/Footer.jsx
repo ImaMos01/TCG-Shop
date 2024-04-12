@@ -25,7 +25,7 @@ function Footer() {
         <div>
           <ul>
             {categoryItems.map((it, index) => (
-              <NavMenu key={index} name={it.name} url={it.url} />
+              <NavMenu key={index} name={it.name} path={it.url} />
             ))}
           </ul>
         </div>

@@ -31,14 +31,17 @@ function Category() {
         <p className="text-sm pl-2 italic">{products.length} Products found</p>
       </div>
 
-      <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {products.map((it) => (
           <li key={it.id}>
             <ItemCard
+              id={it.id}
               img_URL={it.img_URL}
               title={it.title}
               stock={it.stock}
               price={it.price}
+              discount={it.discount}
+              name={params.Category}
             />
           </li>
         ))}
