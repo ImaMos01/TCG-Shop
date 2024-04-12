@@ -24,10 +24,7 @@ const router = createBrowserRouter(
     <Route>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
-        <Route path="YuGiOh" element={<Category />} />
-        <Route path="Pokemon" element={<Category />} />
-        <Route path="Digimon" element={<Category />} />
-        <Route path="Magic" element={<Category />} />
+        <Route path=":Category" element={<Category />} />
         <Route path="Product" element={<Product />} />
         <Route path="Cart" element={<ShoppCart />} />
         <Route path="*" element={<NotFoundPage />} />

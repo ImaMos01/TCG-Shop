@@ -44,6 +44,7 @@ function Home() {
   /*
   Main page of the website  
   */
+
   return (
     <section className="min-h-screen w-full max-w-2xl lg:max-w-4xl mx-auto pt-60 md:pt-40 lg:pt-32 px-5 bg-white shadow-md border rounded border-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-900 dark:shadow-slate-700">
       {/* Slider */}
