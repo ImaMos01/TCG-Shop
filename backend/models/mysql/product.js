@@ -16,6 +16,7 @@ export class ProductModel {
         `SELECT BIN_TO_UUID(id) id, title, price, type, img_URL, stock, discount, category_id FROM Product WHERE ${column} = ?;`,
         [value]
       );
+      console.log(products);
       return products;
     } catch (e) {
       return null;
@@ -37,6 +38,30 @@ export class ProductModel {
       //find the products by id of the category
       const product = this.getProducts("category_id", id);
       return product;
+    } catch (e) {
+      return null;
+    }
+  }
+  static async getById({ id }) {
+    // Logic to get a product by its id
+    try {
+      const [product] = await connection.query(
+        `SELECT BIN_TO_UUID(id) id, title, price, type, img_URL, stock, discount, category_id FROM Product WHERE id = UUID_TO_BIN(?);`,
+        [id]
+      );
+      return product;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static async getCategoryAll() {
+    // Logic to get all category table
+    try {
+      const [category] = await connection.query(
+        `SELECT id, name, description, img_URL, img_URL_carrousel, path_name FROM Category;`
+      );
+      return category;
     } catch (e) {
       return null;
     }
