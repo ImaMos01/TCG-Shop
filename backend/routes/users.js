@@ -9,10 +9,7 @@ export const createUserRouter = ({ userModel }) => {
   userRouter.get("/", userController.getAll);
   userRouter.get("/:userName", userController.getByUserName);
 
-  /*
-  productRouter.get("/:id", (res, req) => {});
+  userRouter.post("/", userController.createUser);
 
-  productRouter.delete("/:id", (req, res) => {});
-  */
   return userRouter;
 };

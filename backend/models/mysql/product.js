@@ -36,9 +36,10 @@ export class ProductModel {
       const [{ id }] = category_id;
 
       //find the products by id of the category
-      const product = this.getProducts("category_id", id);
+      const product = await this.getProducts("category_id", id);
       return product;
-    } catch (e) {
+    } catch (error) {
+      console.error(error.message);
       return null;
     }
   }
@@ -49,7 +50,7 @@ export class ProductModel {
         `SELECT BIN_TO_UUID(id) id, title, price, type, img_URL, stock, discount, category_id FROM Product WHERE id = UUID_TO_BIN(?);`,
         [id]
       );
-      return product;
+      return product[0];
     } catch (e) {
       return null;
     }
@@ -66,20 +67,4 @@ export class ProductModel {
       return null;
     }
   }
-  /*
-  static async create({ input }) {
-    const { title, category, price } = input;
-
-    const [uuidResult] = await connection.query("SELECT UUID() uuid;");
-    const [{ uuid }] = uuidResult;
-    try {
-      await connection.query(
-        `INSERT INTO Product (id, title, price, type, img_URL, stock, category_Id, discount_Id) VALUES (UUID_TO_BIN("${uuid}"),?,?,?,?,?,?,?);`,
-        [title, category, price]
-      );
-    } catch (e) {
-      throw new Error("Error creating product");
-    }
-  }
-  */
 }
