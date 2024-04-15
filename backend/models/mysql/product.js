@@ -13,9 +13,11 @@ export class ProductModel {
     //function to get the products by a column name and its value
     try {
       const [products] = await connection.query(
-        `SELECT BIN_TO_UUID(id) id, title, price, type, img_URL, stock, discount, category_id FROM Product WHERE ${column} = ?;`,
+        `SELECT BIN_TO_UUID(Product.id) AS id, Product.title, Product.price, Product.type, Product.img_URL, Product.stock, Product.discount, Category.name 
+          FROM Product INNER JOIN Category ON Product.category_id = Category.id WHERE ${column} = ?;`,
         [value]
       );
+      console.log(products);
       return products;
     } catch (e) {
       return null;
@@ -35,26 +37,35 @@ export class ProductModel {
       const [{ id }] = category_id;
 
       //find the products by id of the category
-      const product = this.getProducts("category_id", id);
+      const product = await this.getProducts("Product.category_id", id);
       return product;
+    } catch (error) {
+      console.error(error.message);
+      return null;
+    }
+  }
+  static async getById({ id }) {
+    // Logic to get a product by its id
+    try {
+      const [product] = await connection.query(
+        `SELECT BIN_TO_UUID(id) id, title, price, type, img_URL, stock, discount, category_id FROM Product WHERE id = UUID_TO_BIN(?);`,
+        [id]
+      );
+      return product[0];
     } catch (e) {
       return null;
     }
   }
-  /*
-  static async create({ input }) {
-    const { title, category, price } = input;
 
-    const [uuidResult] = await connection.query("SELECT UUID() uuid;");
-    const [{ uuid }] = uuidResult;
+  static async getCategoryAll() {
+    // Logic to get all category table
     try {
-      await connection.query(
-        `INSERT INTO Product (id, title, price, type, img_URL, stock, category_Id, discount_Id) VALUES (UUID_TO_BIN("${uuid}"),?,?,?,?,?,?,?);`,
-        [title, category, price]
+      const [category] = await connection.query(
+        `SELECT id, name, description, img_URL, img_URL_carrousel, path_name FROM Category;`
       );
+      return category;
     } catch (e) {
-      throw new Error("Error creating product");
+      return null;
     }
   }
-  */
 }
