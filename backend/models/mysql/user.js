@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 export class UserModel {
   static async getAll() {
     const [products] = await connection.query(
-      "SELECT BIN_TO_UUID(id) id, first_name, last_name, user_name, mail FROM User"
+      "SELECT BIN_TO_UUID(id) id, first_name, last_name, user_name, mail FROM User;"
     );
     return products;
   }
@@ -12,7 +12,7 @@ export class UserModel {
   static async getByUserName({ userName }) {
     try {
       const [user] = await connection.query(
-        `SELECT BIN_TO_UUID(id) id, first_name, last_name, user_name, mail, password FROM User WHERE user_name = ?`,
+        `SELECT BIN_TO_UUID(id) id, first_name, last_name, user_name, mail, password FROM User WHERE user_name = ?;`,
         [userName]
       );
 
@@ -45,10 +45,38 @@ export class UserModel {
         `INSERT INTO User (id, first_name, last_name, user_name, mail, password) VALUES (UUID_TO_BIN("${uuid}"), ?, ?, ?, ?, ?);`,
         [fName, lName, uName, mail, newPassword]
       );
-      return { message: "success" };
+      const [newUser] = await connection.query(
+        `SELECT BIN_TO_UUID(id) id, first_Name, last_name, user_name, mail, password FROM User WHERE mail = ?;`,
+        [mail]
+      );
+      return newUser[0];
     } catch (error) {
       console.error(error.message);
       return null;
+    }
+  }
+
+  static async login({ input }) {
+    const { mail, password } = input;
+
+    try {
+      const [hashPassword] = await connection.query(
+        "SELECT BIN_TO_UUID(id) id, first_Name, last_name, user_name, mail, password FROM User WHERE mail = ?;",
+        [mail]
+      );
+      //compare the password
+      const match = await bcrypt.compare(
+        password.toString(),
+        hashPassword[0].password
+      );
+      if (match) {
+        return hashPassword[0];
+      } else {
+        return { Error: "Password not matched" };
+      }
+    } catch (error) {
+      console.error(error.message);
+      return { Error: "Password not matched or email not exist" };
     }
   }
 }

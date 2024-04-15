@@ -13,7 +13,8 @@ export class ProductModel {
     //function to get the products by a column name and its value
     try {
       const [products] = await connection.query(
-        `SELECT BIN_TO_UUID(id) id, title, price, type, img_URL, stock, discount, category_id FROM Product WHERE ${column} = ?;`,
+        `SELECT BIN_TO_UUID(Product.id) AS id, Product.title, Product.price, Product.type, Product.img_URL, Product.stock, Product.discount, Category.name 
+          FROM Product INNER JOIN Category ON Product.category_id = Category.id WHERE ${column} = ?;`,
         [value]
       );
       console.log(products);
@@ -36,7 +37,7 @@ export class ProductModel {
       const [{ id }] = category_id;
 
       //find the products by id of the category
-      const product = await this.getProducts("category_id", id);
+      const product = await this.getProducts("Product.category_id", id);
       return product;
     } catch (error) {
       console.error(error.message);

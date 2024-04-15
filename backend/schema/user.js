@@ -1,7 +1,7 @@
 //validation of data
 import z from "zod";
 
-const userSchema = z.object({
+const newUserSchema = z.object({
   fName: z.string({
     invalid_type_error: "First name must be a string",
     required_error: "First name is required",
@@ -24,6 +24,21 @@ const userSchema = z.object({
     required_error: "Password is required",
   }),
 });
+
+const userSchema = z.object({
+  mail: z.string().email({
+    message: "email must be an email address",
+    required_error: "email is required",
+  }),
+  password: z.string({
+    invalid_type_error: "Password must be a string",
+    required_error: "Password is required",
+  }),
+});
+
+export function validateNewUser(object) {
+  return newUserSchema.safeParse(object);
+}
 
 export function validateUser(object) {
   return userSchema.safeParse(object);
