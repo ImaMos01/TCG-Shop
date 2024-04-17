@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { TbShoppingCartPlus } from "react-icons/tb";
+import { useDispatch } from "react-redux";
+import { updateCart } from "../../features/shopingCart/productSlice";
 import UseNavPages from "../../Hooks/UseNavPages";
 import PropTypes from "prop-types";
 
@@ -26,12 +28,29 @@ function ItemCard({ id, img_URL, title, stock, price, discount, name }) {
     }
   });
 
+  const addShopingCart = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = {
+      id,
+      img_URL,
+      title,
+      stock,
+      price: discMount,
+      quantity: 1,
+    };
+    console.log(formData);
+    addShopingCart(updateCart(formData));
+  };
+  const navigateToProduct = UseNavPages();
+
   return (
     <article className="max-w-xs min-h-full rounded-xl overflow-hidden shadow-lg my-2 border rounded border-gray-200 dark:border-gray-900 dark:shadow-md dark:shadow-slate-700">
       {/*Image */}
       <button
         className="w-full flex justify-center pt-2 "
-        onClick={UseNavPages(`/${name}/${id}`)}
+        onClick={() => navigateToProduct(`/${name}/${id}`)}
       >
         {/*Check the stock of the product */}
         {!stock ? (
@@ -46,7 +65,7 @@ function ItemCard({ id, img_URL, title, stock, price, discount, name }) {
       </button>
 
       {/*Content */}
-      <form className="p-4">
+      <form className="p-4" onSubmit={handleSubmit}>
         <h3 className="font-bold text-sm mb-2 min-h-14 text-center hover:text-blue-800">
           <Link to={`/${name}/${id}`}>{title}</Link>
         </h3>
@@ -76,6 +95,7 @@ function ItemCard({ id, img_URL, title, stock, price, discount, name }) {
                 <p className="text-sm min-h-12">{stock} in stock</p>
                 <div className="flex flex-col md:flex-row items-center justify-between my-2">
                   <p>${discMount}</p>
+
                   <button
                     type="submit"
                     className="w-20 bg-green-500 rounded-md p-1 text-white flex justify-center hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-700"

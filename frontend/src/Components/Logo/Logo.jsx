@@ -3,10 +3,11 @@ import pageLogo from "./../../assets/pageLogo.svg";
 import PropTypes from "prop-types";
 
 function Logo({ sizeImg, sizeText }) {
+  const navToHome = UseNavPages();
   return (
     <button
       className="flex items-center gap-2"
-      onClick={UseNavPages("/")}
+      onClick={() => navToHome("/")}
       aria-label="Main Page"
     >
       <img src={pageLogo} className={`size-${sizeImg}`} />

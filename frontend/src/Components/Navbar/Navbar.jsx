@@ -8,10 +8,11 @@ import {
   LuSun,
 } from "react-icons/lu";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import UseNavPages from "../../Hooks/UseNavPages";
-import pageLogo from "./../../assets/pageLogo.svg";
 import NavMenu from "./NavMenu";
 import useThemeContext from "../../Hooks/UseThemeContext";
+import Logo from "../Logo/Logo";
 
 const categoryItems = [
   { path: "Digimon", name: "Digimon" },
@@ -22,16 +23,14 @@ const categoryItems = [
 
 function Navbar() {
   //Navbar of the website
+
   const [isClick, setIsClick] = useState(false);
   const { contextTheme, setContextTheme } = useThemeContext();
-  /*
-  const [theme, setTheme] = useState(() => {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  });
-  */
+
+  //extract data from the sopping cart
+  const shoppingCart = useSelector((state) => state.cart);
+
+  const navToPages = UseNavPages();
 
   const toggleNavbar = () => {
     setIsClick(!isClick);
@@ -56,14 +55,7 @@ function Navbar() {
   return (
     <nav className="fixed w-full z-20 top-0 start-0 bg-white dark:bg-gray-800 dark:text-white">
       <div className="max-w-2xl lg:max-w-4xl flex flex-col md:flex-row items-center justify-between mx-auto py-4 px-5 gap-2 md:gap-6">
-        <button
-          className="flex items-center gap-2"
-          onClick={UseNavPages("/")}
-          aria-label="Main Page"
-        >
-          <img src={pageLogo} className="size-12" />
-          <span>TCG Shop</span>
-        </button>
+        <Logo sizeImg={"6"} sizeText={"md"} />
 
         {/*search input*/}
         <form className="flex items-center w-1/2 mx-auto">
@@ -94,7 +86,7 @@ function Navbar() {
           <button
             className="flex flex-col items-center hover:text-blue-700 text-center"
             aria-label="sign in"
-            onClick={UseNavPages("/SignIn")}
+            onClick={() => navToPages("/SignIn")}
           >
             <LuUser2 className="size-6" />
             <p>Sign in</p>
@@ -104,11 +96,11 @@ function Navbar() {
           <button
             className="flex items-center gap-1 mr-2"
             aria-label="shopping cart"
-            onClick={UseNavPages("/Cart")}
+            onClick={() => navToPages("/Cart")}
           >
             <LuShoppingCart className="size-6 hover:text-blue-700" />
             <div className="absolute bg-red-500 rounded-full w-5 h-5 text-white top-28 md:top-7 lg:top-4 mt-3 md:mt-0 mx-4 flex justify-center items-center">
-              <div className="text-sm">0</div>
+              <div className="text-sm">{shoppingCart.length}</div>
             </div>
           </button>
 

@@ -7,6 +7,7 @@ import Product from "./Pages/Product/Product.jsx";
 import Register from "./Pages/Login/Register.jsx";
 import SignIn from "./Pages/Login/SignIn.jsx";
 import ShoppCart from "./Pages/ShoppingCart/ShoppCart.jsx";
+import MainLayout from "./Layouts/MainLayout.jsx";
 
 import {
   createBrowserRouter,
@@ -17,7 +18,8 @@ import {
 
 import "./index.css";
 import { ThemeContextProvider } from "./Context/ThemeContext.jsx";
-import MainLayout from "./Layouts/MainLayout.jsx";
+import { Provider } from "react-redux";
+import { store } from "./Store/store.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,7 +41,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeContextProvider>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </ThemeContextProvider>
   </React.StrictMode>
 );
