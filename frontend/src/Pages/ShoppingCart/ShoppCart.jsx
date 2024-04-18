@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
 import CartItem from "../../Components/Cards/CartItem";
 
 function ShoppCart() {
+  //page of the shoping cart using redux to obtain the products
+  const products = useSelector((state) => state.cart);
+
   return (
     <article className="min-h-screen w-full max-w-2xl lg:max-w-4xl mx-auto pt-60 pb-4 md:pt-40 lg:pt-32 px-5 bg-white shadow-md border rounded border-gray-100 dark:bg-gray-800 dark:text-white dark:shadow-slate-700 dark:border-gray-900">
       <div className="container flex flex-1 flex-col">
@@ -11,12 +15,18 @@ function ShoppCart() {
           <section className="w-full md:w-3/4 border border-gray-200 shadow-md dark:border-gray-900 dark:shadow-slate-700">
             <h3 className="p-2">1 Total Items</h3>
             <ul className="p-2 flex flex-col gap-4 mb-6">
-              <li className="mr-6">
-                <CartItem />
-              </li>
-              <li className="mr-6">
-                <CartItem />
-              </li>
+              {products.map((it) => (
+                <li key={it.id} className="mr-6">
+                  <CartItem
+                    id={it.id}
+                    img_URL={it.img_URL}
+                    price={it.price}
+                    quantity={it.quantity}
+                    stock={it.stock}
+                    title={it.title}
+                  />
+                </li>
+              ))}
             </ul>
             <div className="w-full bg-blue-700 text-end px-2 py-1">
               subtotal

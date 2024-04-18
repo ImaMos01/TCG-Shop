@@ -30,8 +30,6 @@ function Carousel({ slides, autoSlide = false, autoslideInterval = 6000 }) {
     return () => clearInterval(slideInterval);
   }, []);
 
-  //TODO: check that the image is the correct dimensions
-
   return (
     <div className="overflow-hidden relative">
       {/*Images */}
@@ -39,8 +37,8 @@ function Carousel({ slides, autoSlide = false, autoslideInterval = 6000 }) {
         className="flex transition-transform ease-out duration-500"
         style={{ transform: `translateX(-${curr * 100}%)` }}
       >
-        {slides.map((s, index) => (
-          <img key={index} src={s} />
+        {slides.map((it) => (
+          <img key={it.id} src={it.img_URL_carrousel} alt={it.name} />
         ))}
       </div>
 

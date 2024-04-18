@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export default function UseNavPages(name) {
+export default function UseNavPages() {
   /*
   Navigates throw click actions
   Args:
@@ -10,7 +10,7 @@ export default function UseNavPages(name) {
     function where return a navigate function 
   */
   const navigate = useNavigate();
-  const navigateToName = () => {
+  const navigateToName = (name) => {
     navigate(`${name}`);
   };
   return navigateToName;

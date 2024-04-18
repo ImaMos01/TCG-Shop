@@ -4,8 +4,9 @@ import axios from "axios";
 import ItemCard from "../../Components/Cards/ItemCard";
 
 function Category() {
-  const [products, setProducts] = useState([]);
   //show products by its category
+  const [products, setProducts] = useState([]);
+
   const params = useParams();
 
   useEffect(() => {
@@ -25,7 +26,7 @@ function Category() {
 
   return (
     <section className="min-h-screen w-full max-w-2xl lg:max-w-4xl mx-auto pt-60 pb-4 md:pt-40 lg:pt-32 px-5 bg-white shadow-md border rounded border-gray-100 dark:bg-gray-800 dark:text-white dark:shadow-slate-700 dark:border-gray-900">
-      <h2 className="text-2xl pb-4">{params.Category}</h2>
+      <h2 className="text-2xl pb-4">{products[0]?.name}</h2>
 
       <div className="border rounded-lg border-gray-300 mb-3 p-2 dark:border-gray-900">
         <p className="text-sm pl-2 italic">{products.length} Products found</p>
