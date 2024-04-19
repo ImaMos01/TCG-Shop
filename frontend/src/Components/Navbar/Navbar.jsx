@@ -13,6 +13,7 @@ import UseNavPages from "../../Hooks/UseNavPages";
 import NavMenu from "./NavMenu";
 import useThemeContext from "../../Hooks/UseThemeContext";
 import Logo from "../Logo/Logo";
+import useCountQty from "../../Hooks/useCountQty";
 
 const categoryItems = [
   { path: "Digimon", name: "Digimon" },
@@ -29,6 +30,7 @@ function Navbar() {
 
   //extract data from the sopping cart
   const shoppingCart = useSelector((state) => state.cart);
+  const { allItems } = useCountQty(shoppingCart);
 
   const navToPages = UseNavPages();
 
@@ -100,7 +102,7 @@ function Navbar() {
           >
             <LuShoppingCart className="size-6 hover:text-blue-700" />
             <div className="absolute bg-red-500 rounded-full w-5 h-5 text-white top-28 md:top-7 lg:top-4 mt-3 md:mt-0 mx-4 flex justify-center items-center">
-              <div className="text-sm">{shoppingCart.length}</div>
+              <div className="text-sm">{allItems}</div>
             </div>
           </button>
 
