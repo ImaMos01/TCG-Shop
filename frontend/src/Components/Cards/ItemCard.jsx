@@ -37,10 +37,10 @@ function ItemCard({ id, img_URL, title, stock, price, discount, name }) {
       img_URL,
       title,
       stock,
-      price: discMount,
+      price: parseFloat(discMount),
+      originPrice: parseFloat(discMount),
       quantity: 1,
     };
-    console.log(formData);
     addShopingCart(updateCart(formData));
   };
   const navigateToProduct = UseNavPages();

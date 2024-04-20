@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateCart } from "../../features/shopingCart/productSlice";
 import axios from "axios";
 
 function Product() {
   /*
     Shows the description of an product 
   */
+  const addProduct = useDispatch();
+
   const [productData, setProductData] = useState([]);
   const [price, setPrice] = useState();
 
@@ -37,6 +41,20 @@ function Product() {
     findDiscount(productData.price, productData.discount);
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = {
+      id: productData.id,
+      img_URL: productData.img_URL,
+      title: productData.title,
+      stock: productData.stock,
+      price: parseFloat(productData.price),
+      originPrice: parseFloat(productData.price),
+      quantity: Number(e.target.quantity.value),
+    };
+    console.log(formData);
+    addProduct(updateCart(formData));
+  };
   return (
     <article className="min-h-screen w-full max-w-2xl lg:max-w-4xl mx-auto pb-4 pt-56 md:pt-36 lg:pt-28 px-5 bg-white shadow-md border rounded border-gray-100 dark:bg-gray-800 dark:text-white dark:shadow-slate-700 dark:border-gray-900">
       <div className="pb-4 flex flex-col md:flex-row gap-1 md:gap-1.5">
@@ -64,7 +82,7 @@ function Product() {
           </Link>
         </h2>
       </div>
-
+      {/* Content of the product */}
       <section className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-8">
         {/*if there is stock */}
         {!productData.stock ? (
@@ -90,16 +108,17 @@ function Product() {
                   <p>$ {productData.price}</p>
 
                   {/* quantity and add to cart button */}
-                  <div className="flex flex-row gap-2 items-center">
-                    <label htmlFor="qrty">qty:</label>
-                    <select
-                      id="qrty"
-                      className="border border-gray-500 rounded-md p-1 dark:text-gray-900"
-                    >
-                      <option defaultValue value="0">
-                        0
-                      </option>
-                    </select>
+                  <div className="flex flex-row gap-2 items-center justify-end">
+                    <input
+                      type="number"
+                      id="quantity"
+                      name="quantity"
+                      min="0"
+                      max="0"
+                      defaultValue="0"
+                      className="w-1/5 bg-gray-300 dark:bg-white dark:text-gray-900 rounded text-center"
+                      disabled
+                    />
                     <button
                       className="bg-green-300 text-white border border-green-300 rounded-md py-1 px-2 cursor-not-allowed"
                       aria-label="add to cart"
@@ -111,16 +130,16 @@ function Product() {
                 </div>
               </form>
               {/*description */}
-              <h2 className="text-lg font-medium">Description</h2>
+              <h2 className="text-lg font-medium underline">Description</h2>
               <ul className="text-sm mt-2 flex flex-col gap-0.5">
                 <li className="flex flex-row gap-2">
-                  Name:<p>{productData.title}</p>
+                  Name:<p className="font-semibold">{productData.title}</p>
                 </li>
                 <li className="flex flex-row gap-2">
-                  Type:<p>{productData.type}</p>
+                  Type:<p className="font-semibold">{productData.type}</p>
                 </li>
                 <li className="flex flex-row gap-2">
-                  Category:<p>{params.Category}</p>
+                  Category:<p className="font-semibold">{params.Category}</p>
                 </li>
               </ul>
             </aside>
@@ -135,7 +154,7 @@ function Product() {
               />
             </div>
             <aside className="w-60 md:w-80">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <h3 className="text-2xl mb-2 font-medium">
                   {productData.title}
                 </h3>
@@ -149,18 +168,19 @@ function Product() {
                     <p>$ {productData.price}</p>
 
                     {/* quantity and add to cart button */}
-                    <div className="flex flex-row gap-2 items-center">
-                      <label htmlFor="qrty">qty:</label>
-                      <select
-                        id="qrty"
-                        className="border border-gray-500 rounded-md p-1 dark:text-gray-900"
-                      >
-                        <option defaultValue value="1">
-                          1
-                        </option>
-                        <option value="2">2</option>
-                      </select>
+                    <div className="flex flex-row gap-2 items-center justify-end">
+                      <label htmlFor="quantity">qty:</label>
+                      <input
+                        type="number"
+                        id="quantity"
+                        name="quantity"
+                        min="1"
+                        max={productData.stock}
+                        defaultValue="1"
+                        className="w-1/5 bg-gray-300 dark:bg-white dark:text-gray-900 rounded text-center"
+                      />
                       <button
+                        type="submit"
                         className="bg-green-500 text-white border rounded-md py-1 px-2 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-700 dark:border-gray-800"
                         aria-label="add to cart"
                       >
@@ -182,18 +202,19 @@ function Product() {
                       </div>
 
                       {/* quantity and add to cart button */}
-                      <div className="flex flex-row gap-2 items-center">
-                        <label htmlFor="qrty">qty:</label>
-                        <select
-                          id="qrty"
-                          className="border border-gray-500 rounded-md p-1 dark:text-gray-900"
-                        >
-                          <option defaultValue value="1">
-                            1
-                          </option>
-                          <option value="2">2</option>
-                        </select>
+                      <div className="flex flex-row gap-2 items-center justify-end">
+                        <label htmlFor="quantity">qty:</label>
+                        <input
+                          type="number"
+                          id="quantity"
+                          name="quantity"
+                          min="1"
+                          max={productData.stock}
+                          defaultValue="1"
+                          className="w-1/5 bg-gray-300 dark:bg-white dark:text-gray-900 rounded text-center"
+                        />
                         <button
+                          type="submit"
                           className="bg-green-500 text-white border rounded-md py-1 px-2 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-700 dark:border-gray-800"
                           aria-label="add to cart"
                         >
@@ -205,16 +226,16 @@ function Product() {
                 )}
               </form>
               {/*description */}
-              <h2 className="text-lg font-medium">Description</h2>
+              <h2 className="text-lg font-medium underline">Description</h2>
               <ul className="text-sm mt-2 flex flex-col gap-0.5">
                 <li className="flex flex-row gap-2">
-                  Name:<p>{productData.title}</p>
+                  Name:<p className="font-semibold">{productData.title}</p>
                 </li>
                 <li className="flex flex-row gap-2">
-                  Type:<p>{productData.type}</p>
+                  Type:<p className="font-semibold">{productData.type}</p>
                 </li>
                 <li className="flex flex-row gap-2">
-                  Category:<p>{params.Category}</p>
+                  Category:<p className="font-semibold">{params.Category}</p>
                 </li>
               </ul>
             </aside>

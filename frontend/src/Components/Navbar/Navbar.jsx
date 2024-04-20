@@ -4,7 +4,6 @@ import {
   LuMoon,
   LuMenu,
   LuX,
-  LuSearch,
   LuSun,
 } from "react-icons/lu";
 import { useState, useEffect } from "react";
@@ -13,6 +12,8 @@ import UseNavPages from "../../Hooks/UseNavPages";
 import NavMenu from "./NavMenu";
 import useThemeContext from "../../Hooks/UseThemeContext";
 import Logo from "../Logo/Logo";
+import useCountQty from "../../Hooks/useCountQty";
+import SearchBar from "../Search/SearchBar";
 
 const categoryItems = [
   { path: "Digimon", name: "Digimon" },
@@ -29,6 +30,7 @@ function Navbar() {
 
   //extract data from the sopping cart
   const shoppingCart = useSelector((state) => state.cart);
+  const { allItems } = useCountQty(shoppingCart);
 
   const navToPages = UseNavPages();
 
@@ -58,27 +60,7 @@ function Navbar() {
         <Logo sizeImg={"6"} sizeText={"md"} />
 
         {/*search input*/}
-        <form className="flex items-center w-1/2 mx-auto">
-          <label htmlFor="search" className="sr-only">
-            Search
-          </label>
-          <div className="relative w-full ">
-            <input
-              type="search"
-              id="search"
-              className="p-2.5 w-full z-20 text-sm text-gray-900 rounded-xl border-e-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
-              placeholder="Search..."
-              required
-            />
-            <button
-              type="submit"
-              className="absolute top-0 end-0 p-2 h-full text-white bg-orange-500 rounded-e-lg border border-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300"
-              aria-label="submit search"
-            >
-              <LuSearch className="size-5" />
-            </button>
-          </div>
-        </form>
+        <SearchBar />
 
         {/*buttons */}
         <div className="flex gap-4">
@@ -100,7 +82,7 @@ function Navbar() {
           >
             <LuShoppingCart className="size-6 hover:text-blue-700" />
             <div className="absolute bg-red-500 rounded-full w-5 h-5 text-white top-28 md:top-7 lg:top-4 mt-3 md:mt-0 mx-4 flex justify-center items-center">
-              <div className="text-sm">{shoppingCart.length}</div>
+              <div className="text-sm">{allItems}</div>
             </div>
           </button>
 
