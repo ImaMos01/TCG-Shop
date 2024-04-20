@@ -11,7 +11,8 @@ function ShoppCart() {
   const { allItems } = useCountQty(products);
   const { totalPrice } = useCountTotal(products);
 
-  const navToHome = UseNavPages();
+  const navTo = UseNavPages();
+
   return (
     <article className="min-h-screen w-full max-w-2xl lg:max-w-4xl mx-auto pt-60 pb-4 md:pt-40 lg:pt-32 px-5 bg-white shadow-md border rounded border-gray-100 dark:bg-gray-800 dark:text-white dark:shadow-slate-700 dark:border-gray-900">
       <div className="container flex flex-1 flex-col">
@@ -25,7 +26,7 @@ function ShoppCart() {
             </h3>
             <button
               className="py-1 px-2 bg-orange-500 rounded-lg border border-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 text-white"
-              onClick={() => navToHome("/")}
+              onClick={() => navTo("/")}
             >
               Continue Shopping
             </button>
@@ -42,23 +43,27 @@ function ShoppCart() {
                       id={it.id}
                       img_URL={it.img_URL}
                       price={parseFloat(it.price)}
-                      quantity={parseFloat(it.quantity)}
+                      quantity={Number(it.quantity)}
                       stock={it.stock}
                       title={it.title}
+                      originPrice={it.originPrice}
                     />
                   </li>
                 ))}
               </ul>
               <div className="w-full bg-blue-700 text-end px-2 py-1">
-                subtotal: $ {totalPrice}
+                subtotal: $ {parseFloat(totalPrice).toFixed(2)}
               </div>
             </section>
 
             {/*Checkout */}
             <aside className="w-3/4 md:w-1/4">
               <div className="border rounded border-gray-200 shadow-md p-2 dark:border-gray-900 dark:shadow-slate-700">
-                <p>Subtotal: $ {totalPrice}</p>
-                <button className="w-full text-white bg-orange-500 rounded-md border hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 my-4 p-1 dark:border-gray-800">
+                <p>Subtotal: $ {parseFloat(totalPrice).toFixed(2)}</p>
+                <button
+                  className="w-full text-white bg-orange-500 rounded-md border hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 my-4 p-1 dark:border-gray-800"
+                  onClick={() => navTo("/Checkout")}
+                >
                   Secure Checkout
                 </button>
               </div>

@@ -8,6 +8,10 @@ import Register from "./Pages/Login/Register.jsx";
 import SignIn from "./Pages/Login/SignIn.jsx";
 import ShoppCart from "./Pages/ShoppingCart/ShoppCart.jsx";
 import MainLayout from "./Layouts/MainLayout.jsx";
+import Checkout from "./Pages/Checkout/Checkout.jsx";
+
+import UserAuth from "./guards/UserAuth.jsx";
+import LoginAuth from "./guards/LoginAuth.jsx";
 
 import {
   createBrowserRouter,
@@ -29,10 +33,15 @@ const router = createBrowserRouter(
         <Route path=":Category" element={<Category />} />
         <Route path=":Category/:Id" element={<Product />} />
         <Route path="Cart" element={<ShoppCart />} />
+        <Route element={<UserAuth />}>
+          <Route path="Checkout" element={<Checkout />} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>
-      <Route path="/SignIn" element={<SignIn />} />
-      <Route path="/Register" element={<Register />} />
+      <Route element={<LoginAuth />}>
+        <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/Register" element={<Register />} />
+      </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   )

@@ -1,12 +1,9 @@
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import {
-  deleteCart,
-  updateCart,
-} from "../../features/shopingCart/productSlice";
+import { deleteCart, updateQty } from "../../features/shopingCart/productSlice";
 import PropTypes from "prop-types";
 
-function CartItem({ id, img_URL, price, quantity, stock, title }) {
+function CartItem({ id, img_URL, price, quantity, stock, title, originPrice }) {
   /*
     Item for the shopping cart
   */
@@ -20,10 +17,10 @@ function CartItem({ id, img_URL, price, quantity, stock, title }) {
   const handleQuantity = (e) => {
     const data = {
       id,
-      price: parseFloat(price).toFixed(2),
       quantity: Number(e.target.value),
+      originPrice,
     };
-    shopCart(updateCart(data));
+    shopCart(updateQty(data));
   };
 
   return (
@@ -50,7 +47,7 @@ function CartItem({ id, img_URL, price, quantity, stock, title }) {
             className="w-2/12 md:w-1/5 bg-gray-300 dark:bg-white dark:text-gray-900 rounded text-center"
             onChange={handleQuantity}
           />
-          <p>$ {price}</p>
+          <p>$ {parseFloat(price).toFixed(2)}</p>
           <button
             type="submit"
             className="border rounded-md text-white p-2 mx-2 bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-700 dark:border-gray-800"
@@ -72,5 +69,6 @@ CartItem.propTypes = {
   quantity: PropTypes.number,
   stock: PropTypes.number,
   title: PropTypes.string,
+  originPrice: PropTypes.number,
 };
 export default CartItem;

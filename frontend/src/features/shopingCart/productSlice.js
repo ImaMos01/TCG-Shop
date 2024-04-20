@@ -8,19 +8,40 @@ export const shopingCartSlice = createSlice({
       return action.payload;
     },
     updateCart: (state, action) => {
-      if (!state) state.push(action.payload);
-      else {
+      //add to cart by itemCart thumbnail
+      if (!state) {
+        //shopping cart empty
+        const { quantity } = action.payload;
+
+        if (quantity > 1) {
+          action.payload.price *= quantity;
+        }
+
+        state.push(action.payload);
+      } else {
         const { id, quantity, price } = action.payload;
         const foundProduct = state.find((it) => it.id === id);
+
         if (foundProduct) {
-          if (quantity > 1) foundProduct.quantity = quantity;
-          else foundProduct.quantity += quantity;
-          foundProduct.price = parseFloat(
-            foundProduct.quantity * price
-          ).toFixed(2);
+          foundProduct.quantity += quantity;
+          const tempPrice = parseFloat(price).toFixed(2);
+          foundProduct.price = foundProduct.quantity * tempPrice;
         } else {
+          if (quantity > 1) {
+            action.payload.price *= quantity;
+          }
           state.push(action.payload);
         }
+      }
+    },
+    updateQty: (state, action) => {
+      //increase the quantity of products in the shopping cart page
+      const { id, quantity, originPrice } = action.payload;
+      const foundProduct = state.find((it) => it.id === id);
+      if (foundProduct) {
+        foundProduct.quantity = quantity;
+        const tempPrice = parseFloat(originPrice).toFixed(2);
+        foundProduct.price = foundProduct.quantity * tempPrice;
       }
     },
     deleteCart: (state, action) => {
@@ -32,6 +53,7 @@ export const shopingCartSlice = createSlice({
   },
 });
 
-export const { createCart, updateCart, deleteCart } = shopingCartSlice.actions;
+export const { createCart, updateCart, updateQty, deleteCart } =
+  shopingCartSlice.actions;
 
 export default shopingCartSlice.reducer;

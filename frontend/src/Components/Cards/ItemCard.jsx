@@ -38,6 +38,7 @@ function ItemCard({ id, img_URL, title, stock, price, discount, name }) {
       title,
       stock,
       price: parseFloat(discMount),
+      originPrice: parseFloat(discMount),
       quantity: 1,
     };
     addShopingCart(updateCart(formData));

@@ -11,7 +11,6 @@ function Product() {
   const addProduct = useDispatch();
 
   const [productData, setProductData] = useState([]);
-  const [qty, setQty] = useState({ quantity: 1 });
   const [price, setPrice] = useState();
 
   const params = useParams();
@@ -42,13 +41,6 @@ function Product() {
     findDiscount(productData.price, productData.discount);
   }, []);
 
-  const handleChange = (e) => {
-    setQty({
-      ...qty,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
@@ -56,9 +48,11 @@ function Product() {
       img_URL: productData.img_URL,
       title: productData.title,
       stock: productData.stock,
-      price: productData.price,
-      quantity: qty.quantity,
+      price: parseFloat(productData.price),
+      originPrice: parseFloat(productData.price),
+      quantity: Number(e.target.quantity.value),
     };
+    console.log(formData);
     addProduct(updateCart(formData));
   };
   return (
@@ -88,7 +82,7 @@ function Product() {
           </Link>
         </h2>
       </div>
-
+      {/* Content of the product */}
       <section className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-8">
         {/*if there is stock */}
         {!productData.stock ? (
@@ -160,7 +154,7 @@ function Product() {
               />
             </div>
             <aside className="w-60 md:w-80">
-              <form onClick={handleSubmit}>
+              <form onSubmit={handleSubmit}>
                 <h3 className="text-2xl mb-2 font-medium">
                   {productData.title}
                 </h3>
@@ -175,7 +169,7 @@ function Product() {
 
                     {/* quantity and add to cart button */}
                     <div className="flex flex-row gap-2 items-center justify-end">
-                      <label htmlFor="qrty">qty:</label>
+                      <label htmlFor="quantity">qty:</label>
                       <input
                         type="number"
                         id="quantity"
@@ -184,7 +178,6 @@ function Product() {
                         max={productData.stock}
                         defaultValue="1"
                         className="w-1/5 bg-gray-300 dark:bg-white dark:text-gray-900 rounded text-center"
-                        onChange={handleChange}
                       />
                       <button
                         type="submit"
@@ -210,7 +203,7 @@ function Product() {
 
                       {/* quantity and add to cart button */}
                       <div className="flex flex-row gap-2 items-center justify-end">
-                        <label htmlFor="qrty">qty:</label>
+                        <label htmlFor="quantity">qty:</label>
                         <input
                           type="number"
                           id="quantity"
@@ -219,7 +212,6 @@ function Product() {
                           max={productData.stock}
                           defaultValue="1"
                           className="w-1/5 bg-gray-300 dark:bg-white dark:text-gray-900 rounded text-center"
-                          onChange={handleChange}
                         />
                         <button
                           type="submit"
