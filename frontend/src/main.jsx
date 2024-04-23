@@ -1,14 +1,18 @@
 import React from "react";
+import { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
-import Home from "./Pages/Home/Home.jsx";
-import Category from "./Pages/Category/Category.jsx";
-import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage.jsx";
-import Product from "./Pages/Product/Product.jsx";
-import Register from "./Pages/Login/Register.jsx";
-import SignIn from "./Pages/Login/SignIn.jsx";
-import ShoppCart from "./Pages/ShoppingCart/ShoppCart.jsx";
-import MainLayout from "./Layouts/MainLayout.jsx";
-import Checkout from "./Pages/Checkout/Checkout.jsx";
+
+const Home = lazy(() => import("./Pages/Home/Home.jsx"));
+const Category = lazy(() => import("./Pages/Category/Category.jsx"));
+const NotFoundPage = lazy(() =>
+  import("./Pages/NotFoundPage/NotFoundPage.jsx")
+);
+const Product = lazy(() => import("./Pages/Product/Product.jsx"));
+const Register = lazy(() => import("./Pages/Login/Register.jsx"));
+const SignIn = lazy(() => import("./Pages/Login/SignIn.jsx"));
+const ShoppCart = lazy(() => import("./Pages/ShoppingCart/ShoppCart.jsx"));
+const MainLayout = lazy(() => import("./Layouts/MainLayout.jsx"));
+const Checkout = lazy(() => import("./Pages/Checkout/Checkout.jsx"));
 
 import UserAuth from "./guards/UserAuth.jsx";
 import LoginAuth from "./guards/LoginAuth.jsx";
@@ -50,9 +54,11 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeContextProvider>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
+      <Suspense fallback={<>Loading ...</>}>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </Suspense>
     </ThemeContextProvider>
   </React.StrictMode>
 );

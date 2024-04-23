@@ -2,11 +2,16 @@ import { LuUser2, LuUserCircle2 } from "react-icons/lu";
 import PropTypes from "prop-types";
 import UseNavPages from "../../Hooks/UseNavPages";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { deleteUser } from "../../features/shopingCart/userSlice";
+import { Link } from "react-router-dom";
 
 function LoginIcon({ name = "Sign in", active = false }) {
   const [isClick, setIsClick] = useState(false);
 
   const navToPages = UseNavPages();
+
+  const userData = useDispatch();
 
   const toggleNavbar = () => {
     setIsClick(!isClick);
@@ -22,14 +27,24 @@ function LoginIcon({ name = "Sign in", active = false }) {
         <LuUserCircle2 className="size-6" />
       </button>
       {isClick && (
-        <div className=" font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-          <ul>
+        <div className="absolute mt-8 font-normal bg-white shadow-md border-gray-100 divide-y divide-gray-100 rounded-lg shadow w-36 dark:bg-gray-800 dark:border-gray-900 dark:divide-gray-400 dark:shadow-slate-700">
+          <ul className="m-2">
+            <li className="mb-1">
+              <p>{name}</p>
+            </li>
             <li>
-              <a href="#">Dashboard</a>
+              <a href="#" className="hover:underline">
+                history
+              </a>
             </li>
           </ul>
-          <div className="py-1">
-            <a>Sign out</a>
+          <div className="py-1 m-2 text-red-500 font-bold">
+            <p
+              className="hover:underline"
+              onClick={() => userData(deleteUser())}
+            >
+              <Link to="/">Sign Out</Link>
+            </p>
           </div>
         </div>
       )}

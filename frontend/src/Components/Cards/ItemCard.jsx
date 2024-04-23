@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { updateCart } from "../../features/shopingCart/productSlice";
 import UseNavPages from "../../Hooks/UseNavPages";
 import PropTypes from "prop-types";
-
+import { toast } from "sonner";
 function ItemCard({ id, img_URL, title, stock, price, discount, name }) {
   /*
   Card template to put information about the Items to buy
@@ -42,6 +42,7 @@ function ItemCard({ id, img_URL, title, stock, price, discount, name }) {
       quantity: 1,
     };
     addShopingCart(updateCart(formData));
+    toast.success("Added product to the cart");
   };
   const navigateToProduct = UseNavPages();
 
