@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateCart } from "../../features/shopingCart/productSlice";
+import { toast } from "sonner";
 import axios from "axios";
 
 function Product() {
@@ -38,8 +39,11 @@ function Product() {
       }
     };
     fetchData();
-    findDiscount(productData.price, productData.discount);
   }, []);
+
+  useEffect(() => {
+    findDiscount(productData.price, productData.discount);
+  }, [productData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,12 +52,13 @@ function Product() {
       img_URL: productData.img_URL,
       title: productData.title,
       stock: productData.stock,
-      price: parseFloat(productData.price),
+      price: parseFloat(price),
       originPrice: parseFloat(productData.price),
       quantity: Number(e.target.quantity.value),
     };
-    console.log(formData);
+
     addProduct(updateCart(formData));
+    toast.success("Added products to the cart");
   };
   return (
     <article className="min-h-screen w-full max-w-2xl lg:max-w-4xl mx-auto pb-4 pt-56 md:pt-36 lg:pt-28 px-5 bg-white shadow-md border rounded border-gray-100 dark:bg-gray-800 dark:text-white dark:shadow-slate-700 dark:border-gray-900">

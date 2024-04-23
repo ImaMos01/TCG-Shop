@@ -2,6 +2,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { deleteCart, updateQty } from "../../features/shopingCart/productSlice";
 import PropTypes from "prop-types";
+import { toast } from "sonner";
 
 function CartItem({ id, img_URL, price, quantity, stock, title, originPrice }) {
   /*
@@ -12,6 +13,7 @@ function CartItem({ id, img_URL, price, quantity, stock, title, originPrice }) {
 
   const handleDelete = () => {
     shopCart(deleteCart(id));
+    toast.error("Products removed");
   };
 
   const handleQuantity = (e) => {
