@@ -1,11 +1,4 @@
-import {
-  LuUser2,
-  LuShoppingCart,
-  LuMoon,
-  LuMenu,
-  LuX,
-  LuSun,
-} from "react-icons/lu";
+import { LuShoppingCart, LuMoon, LuMenu, LuX, LuSun } from "react-icons/lu";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import UseNavPages from "../../Hooks/UseNavPages";
@@ -14,6 +7,7 @@ import useThemeContext from "../../Hooks/UseThemeContext";
 import Logo from "../Logo/Logo";
 import useCountQty from "../../Hooks/useCountQty";
 import SearchBar from "../Search/SearchBar";
+import LoginIcon from "../LoginIcon/LoginIcon";
 
 const categoryItems = [
   { path: "Digimon", name: "Digimon" },
@@ -31,6 +25,9 @@ function Navbar() {
   //extract data from the sopping cart
   const shoppingCart = useSelector((state) => state.cart);
   const { allItems } = useCountQty(shoppingCart);
+
+  //extract data from user
+  const userData = useSelector((state) => state.user);
 
   const navToPages = UseNavPages();
 
@@ -63,16 +60,13 @@ function Navbar() {
         <SearchBar />
 
         {/*buttons */}
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-center">
           {/*Sign in */}
-          <button
-            className="flex flex-col items-center hover:text-blue-700 text-center"
-            aria-label="sign in"
-            onClick={() => navToPages("/SignIn")}
-          >
-            <LuUser2 className="size-6" />
-            <p>Sign in</p>
-          </button>
+          {userData.length >= 1 ? (
+            <LoginIcon name={userData[0].user_name} active={true} />
+          ) : (
+            <LoginIcon />
+          )}
 
           {/*Shopping cart */}
           <button

@@ -27,6 +27,7 @@ function ShoppCart() {
             <button
               className="py-1 px-2 bg-orange-500 rounded-lg border border-orange-600 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 text-white"
               onClick={() => navTo("/")}
+              aria-label="go to home"
             >
               Continue Shopping
             </button>
@@ -51,7 +52,7 @@ function ShoppCart() {
                   </li>
                 ))}
               </ul>
-              <div className="w-full bg-blue-700 text-end px-2 py-1">
+              <div className="w-full bg-blue-700 text-end px-2 py-1 text-white">
                 subtotal: $ {parseFloat(totalPrice).toFixed(2)}
               </div>
             </section>
@@ -63,6 +64,7 @@ function ShoppCart() {
                 <button
                   className="w-full text-white bg-orange-500 rounded-md border hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 my-4 p-1 dark:border-gray-800"
                   onClick={() => navTo("/Checkout")}
+                  aria-label="procced to checkout"
                 >
                   Secure Checkout
                 </button>
