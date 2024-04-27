@@ -17,7 +17,6 @@ export class ProductModel {
           FROM Product INNER JOIN Category ON Product.category_id = Category.id WHERE ${column} = ?;`,
         [value]
       );
-      console.log(products);
       return products;
     } catch (e) {
       return null;
@@ -48,11 +47,13 @@ export class ProductModel {
     // Logic to get a product by its id
     try {
       const [product] = await connection.query(
-        `SELECT BIN_TO_UUID(id) id, title, price, type, img_URL, stock, discount, category_id FROM Product WHERE id = UUID_TO_BIN(?);`,
+        `SELECT BIN_TO_UUID(Product.id) AS id, Product.title, Product.price, Product.type, Product.img_URL, Product.stock, Product.discount, Category.name 
+        FROM Product INNER JOIN Category ON Product.category_id = Category.id WHERE Product.id = UUID_TO_BIN(?);`,
         [id]
       );
       return product[0];
     } catch (e) {
+      console.error(error.message);
       return null;
     }
   }
@@ -65,6 +66,22 @@ export class ProductModel {
       );
       return category;
     } catch (e) {
+      console.error(error.message);
+      return null;
+    }
+  }
+
+  static async searchProduct({ input }) {
+    //searching product using search bar
+    const search = input.toLowerCase();
+    try {
+      const [products] = await connection.query(
+        `SELECT BIN_TO_UUID(Product.id) AS id, Product.title, Product.price, Product.type, Product.img_URL, Product.stock, Product.discount, Category.name, Category.path_name
+        FROM Product INNER JOIN Category ON Product.category_id = Category.id WHERE Lower(Product.title) LIKE "%${search}%" OR Lower(Product.type) LIKE "%${search}%" OR LOWER(Category.name) LIKE "%${search}%" OR LOWER(Category.path_name) LIKE "%${search}%";`
+      );
+      return products;
+    } catch (e) {
+      console.error(error.message);
       return null;
     }
   }
