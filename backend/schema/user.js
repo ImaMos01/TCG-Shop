@@ -1,6 +1,7 @@
 //validation of data
 import z from "zod";
 
+//validation for new user
 const newUserSchema = z.object({
   fName: z.string({
     invalid_type_error: "First name must be a string",
@@ -25,6 +26,7 @@ const newUserSchema = z.object({
   }),
 });
 
+//validation for login
 const userSchema = z.object({
   mail: z.string().email({
     message: "email must be an email address",

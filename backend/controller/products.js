@@ -32,12 +32,11 @@ export class ProductController {
     if (category) return res.json(category);
     res.status(404).json({ message: "Product not found " });
   };
-  /*
-  postAll = async (req, res) => {
-    const result = validateProduct(req.body);
-    if (result.error) {
-      return res.status(400).json({ error: result.error.message });
-    }
+
+  searchProduct = async (req, res) => {
+    const { input } = req.params;
+    const products = await this.productModel.searchProduct({ input });
+    if (products) return res.json(products);
+    res.status(404).json({ message: "Products not found " });
   };
-  */
 }

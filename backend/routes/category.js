@@ -6,6 +6,7 @@ export const createCategoryRouter = ({ productModel }) => {
 
   const categoryController = new ProductController({ productModel });
 
+  //for the categoru of the products
   categoryRouter.get("/", categoryController.getCategoryAll);
 
   return categoryRouter;

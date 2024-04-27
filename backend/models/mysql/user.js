@@ -34,6 +34,7 @@ export class UserModel {
   }
 
   static async createUser({ input }) {
+    //Create a new user
     const { fName, lName, uName, mail, password } = input;
     const [uuidResult] = await connection.query("SELECT UUID() uuid;");
     const [{ uuid }] = uuidResult;
@@ -57,6 +58,7 @@ export class UserModel {
   }
 
   static async login({ input }) {
+    //verify if the user exist in the database
     const { mail, password } = input;
 
     try {
