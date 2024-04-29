@@ -34,7 +34,7 @@ function LoginIcon({ name = "Sign in", active = false }) {
             </li>
             <li>
               <a href="#" className="hover:underline">
-                history
+                <Link to="/History">history</Link>
               </a>
             </li>
           </ul>

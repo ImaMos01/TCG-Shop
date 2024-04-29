@@ -6,7 +6,7 @@ import { updateCart } from "../../features/shopingCart/productSlice";
 import UseNavPages from "../../Hooks/UseNavPages";
 import PropTypes from "prop-types";
 import { toast } from "sonner";
-function ItemCard({ id, img_URL, title, stock, price, discount, name }) {
+function ItemCard({ id, img_URL, title, stock, price, discount, name, type }) {
   /*
   Card template to put information about the Items to buy
 
@@ -40,7 +40,10 @@ function ItemCard({ id, img_URL, title, stock, price, discount, name }) {
       price: parseFloat(discMount),
       originPrice: parseFloat(discMount),
       quantity: 1,
+      categ: name,
+      type,
     };
+
     addShopingCart(updateCart(formData));
     toast.success("Added product to the cart");
   };
@@ -144,6 +147,7 @@ ItemCard.propTypes = {
   discount: PropTypes.number,
   name: PropTypes.string,
   id: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default ItemCard;

@@ -17,10 +17,12 @@ function SignIn() {
   const addUser = useDispatch();
   const navigate = useNavigate();
 
+  //save input values
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput({ ...formInput, [name]: value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,7 +32,6 @@ function SignIn() {
         formInput
       );
       const result = await response.data;
-
       addUser(createUser(result));
       navigate("/");
     } catch (error) {

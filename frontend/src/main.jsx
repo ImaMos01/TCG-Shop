@@ -13,7 +13,10 @@ const SignIn = lazy(() => import("./Pages/Login/SignIn.jsx"));
 const ShoppCart = lazy(() => import("./Pages/ShoppingCart/ShoppCart.jsx"));
 const MainLayout = lazy(() => import("./Layouts/MainLayout.jsx"));
 const Checkout = lazy(() => import("./Pages/Checkout/Checkout.jsx"));
-
+const Payment = lazy(() => import("./Pages/payment/Payment.jsx"));
+const Search = lazy(() => import("./Pages/Search/Search.jsx"));
+const Order = lazy(() => import("./Pages/Order/Order.jsx"));
+const OrderView = lazy(() => import("./Pages/Order/OrderView.jsx"));
 import UserAuth from "./guards/UserAuth.jsx";
 import LoginAuth from "./guards/LoginAuth.jsx";
 
@@ -37,8 +40,12 @@ const router = createBrowserRouter(
         <Route path=":Category" element={<Category />} />
         <Route path=":Category/:Id" element={<Product />} />
         <Route path="Cart" element={<ShoppCart />} />
+        <Route path="Search/:input" element={<Search />} />
         <Route element={<UserAuth />}>
           <Route path="Checkout" element={<Checkout />} />
+          <Route path="History" element={<Order />} />
+          <Route path="History/:id" element={<OrderView />} />
+          <Route path="thx" element={<Payment />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>

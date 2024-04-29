@@ -2,7 +2,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-function Carousel({ slides, autoSlide = false, autoslideInterval = 6000 }) {
+function Carousel({ slides, autoSlide = false, autoslideInterval = 7000 }) {
   /**
   Slider for the main page where it show images of the products and the user can iteract with
 
@@ -21,9 +21,9 @@ function Carousel({ slides, autoSlide = false, autoslideInterval = 6000 }) {
   const prev = () =>
     setCurr((curr) => (curr === 0 ? slides.length - 1 : curr - 1));
   const next = () =>
-    setCurr((curr) => (curr >= slides.length - 1 ? 0 : curr + 1));
+    setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1));
 
-  //slide automatically after 6 sec
+  //slide after 6 sec
   useEffect(() => {
     if (!autoSlide) return;
     const slideInterval = setInterval(next, autoslideInterval);
