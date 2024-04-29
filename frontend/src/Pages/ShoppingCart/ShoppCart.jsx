@@ -48,6 +48,8 @@ function ShoppCart() {
                       stock={it.stock}
                       title={it.title}
                       originPrice={it.originPrice}
+                      categ={it.categ}
+                      type={it.type}
                     />
                   </li>
                 ))}

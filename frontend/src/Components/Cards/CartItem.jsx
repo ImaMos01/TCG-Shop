@@ -4,7 +4,17 @@ import { deleteCart, updateQty } from "../../features/shopingCart/productSlice";
 import PropTypes from "prop-types";
 import { toast } from "sonner";
 
-function CartItem({ id, img_URL, price, quantity, stock, title, originPrice }) {
+function CartItem({
+  id,
+  img_URL,
+  price,
+  quantity,
+  stock,
+  title,
+  originPrice,
+  categ,
+  type,
+}) {
   /*
     Item for the shopping cart
   */
@@ -32,8 +42,8 @@ function CartItem({ id, img_URL, price, quantity, stock, title, originPrice }) {
           <img className="w-16 h-20" src={img_URL} alt="product image" />
           <div>
             <h4 className="font-bold">{title}</h4>
-            <p className="font-thin text-sm">category</p>
-            <p className="font-thin text-sm">type</p>
+            <p className="font-thin text-sm">{categ}</p>
+            <p className="font-thin text-sm">{type}</p>
           </div>
         </div>
 
@@ -72,5 +82,7 @@ CartItem.propTypes = {
   stock: PropTypes.number,
   title: PropTypes.string,
   originPrice: PropTypes.number,
+  categ: PropTypes.string,
+  type: PropTypes.string,
 };
 export default CartItem;

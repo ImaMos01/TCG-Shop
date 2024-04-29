@@ -50,10 +50,13 @@ export const shopingCartSlice = createSlice({
         state.splice(state.indexOf(foundProduct), 1);
       }
     },
+    deleteAll: (state) => {
+      while (state.length) state.pop();
+    },
   },
 });
 
-export const { createCart, updateCart, updateQty, deleteCart } =
+export const { createCart, updateCart, updateQty, deleteCart, deleteAll } =
   shopingCartSlice.actions;
 
 export default shopingCartSlice.reducer;

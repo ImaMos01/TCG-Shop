@@ -1,10 +1,13 @@
 import { LuSearch } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 
 function SearchBar() {
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { search } = Object.fromEntries(new window.FormData(e.target));
-    console.log(search);
+    const input = e.target.search.value;
+    navigate(`/Search/${input}`);
   };
   return (
     <form className="flex items-center w-1/2 mx-auto" onSubmit={handleSubmit}>

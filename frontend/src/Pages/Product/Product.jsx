@@ -55,6 +55,8 @@ function Product() {
       price: parseFloat(price),
       originPrice: parseFloat(productData.price),
       quantity: Number(e.target.quantity.value),
+      categ: params.Category,
+      type: productData.type,
     };
 
     addProduct(updateCart(formData));
