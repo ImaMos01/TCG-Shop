@@ -8,6 +8,7 @@ import { UserModel } from "./models/mysql/user.js";
 import { createCategoryRouter } from "./routes/category.js";
 import { createSearchRouter } from "./routes/search.js";
 import { createPaymentRouter } from "./routes/payment.js";
+import { PORT } from "./config.js";
 //zod to validate the data of the request
 
 const app = express();
@@ -20,8 +21,6 @@ app.use("/user", createUserRouter({ userModel: UserModel }));
 app.use("/category", createCategoryRouter({ productModel: ProductModel }));
 app.use("/search", createSearchRouter({ productModel: ProductModel }));
 app.use("/pay", createPaymentRouter({ paymentModel: PaymentModel }));
-
-const PORT = process.env.PORT ?? 8080;
 
 app.listen(PORT, () => {
   console.log("server");
