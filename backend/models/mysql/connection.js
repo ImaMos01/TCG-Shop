@@ -5,7 +5,7 @@ import {
   DB_PASSWORD, 
   DB_PORT,
   DB_USER 
-} from "../../config";
+} from "../../config.js";
 
 const config = {
   host: DB_HOST,
