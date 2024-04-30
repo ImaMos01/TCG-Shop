@@ -38,7 +38,7 @@ function Register() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/user/newUser`,
+        `${import.meta.env.VITE_API}/user/newUser`,
         formInput
       );
       const result = await response.data;

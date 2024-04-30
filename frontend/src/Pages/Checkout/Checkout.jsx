@@ -48,12 +48,12 @@ function Checkout() {
     }
     //fetching the data
     try {
-      const orderD = await axios.post(`http://localhost:8080/pay`, {
+      const orderD = await axios.post(`${import.meta.env.VITE_API}/pay`, {
         userId: user[0]?.id,
         totalPrice: totalPrice.toFixed(2),
       });
       await products.forEach((element) => {
-        axios.post(`http://localhost:8080/pay/itemcart`, {
+        axios.post(`${import.meta.env.VITE_API}/pay/itemcart`, {
           productId: element.id,
           orderId: orderD.data.id,
           quantity: element.quantity,

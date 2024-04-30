@@ -11,7 +11,7 @@ function OrderView() {
     const fetchingData = async () => {
       try {
         const fData = await axios.get(
-          `http://localhost:8080/pay/order/${idOrder.id}`
+          `${import.meta.env.VITE_API}/pay/order/${idOrder.id}`
         );
         const data = await fData.data;
         setOrderD(data);

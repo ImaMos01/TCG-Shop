@@ -30,7 +30,7 @@ function Product() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/product/${params.Category}/${params.Id}`
+          `${import.meta.env.VITE_API}/product/${params.Category}/${params.Id}`
         );
         const result = await response.data;
         setProductData(result);

@@ -13,7 +13,7 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/category`);
+        const response = await axios.get(`${import.meta.env.VITE_API}/category`);
         const data = await response.data;
         setCategories(data);
       } catch (error) {

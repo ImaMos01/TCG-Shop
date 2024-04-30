@@ -13,7 +13,7 @@ function Order() {
     const fetchingData = async () => {
       try {
         const orders = await axios.get(
-          `http://localhost:8080/pay/orders/${user[0]?.id}`
+          `${import.meta.env.VITE_API}/pay/orders/${user[0]?.id}`
         );
         const data = await orders.data;
         setOrderH(data);

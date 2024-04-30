@@ -13,7 +13,7 @@ function Search() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/search/${params.input}`
+          `${import.meta.env.VITE_API}/search/${params.input}`
         );
         const data = await response.data;
         setProducts(data);
